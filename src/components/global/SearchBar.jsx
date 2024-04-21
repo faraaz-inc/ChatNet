@@ -87,7 +87,7 @@ export function SearchBar() {
           placeholder="Search"
           className="rounded-full w-96 px-2 h-full focus:outline-none"
         />
-        {showSuggestions && (
+        {(showSuggestions && suggestions) && (
           <div className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow z-10 p-2">
             {suggestions.map((suggestion, index) => (
               <div onClick={() => goToProfile(suggestion.username)} key={index} className="flex place-items-center px-4 py-2 cursor-pointer hover:bg-gray-300 rounded-md">
