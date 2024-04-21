@@ -3,7 +3,7 @@ import axios from "axios";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-
+import * as React from 'react';
 
 import { BACKEND_URL } from "../components/backend-url"
 import { Logo } from "../components/Login/Logo"
@@ -13,6 +13,7 @@ import { Button } from "../components/Login/Button"
 import { BottomWarning } from "../components/Login/BottomWarning"
 import { useNavigate } from "react-router-dom";
 import { PasswordBox } from "../components/Settings/PasswordBox";
+import BasicSelect from "../components/Login/selectMenu";
 
 
 export function Signup() {
@@ -22,6 +23,7 @@ export function Signup() {
     const [password, setPassword] = useState("");
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastname] = useState("");
+    const [gender, setGender] = useState(null);
     const [dob, setDob] = useState(null);
     const [err, setError] = useState(null);
 
@@ -31,7 +33,7 @@ export function Signup() {
         if(token) {
             navigate("/");
         }
-    },[])
+    },[]);
 
     const setDate = (newValue) => {
         setDob({
@@ -67,6 +69,8 @@ export function Signup() {
                 <DatePicker onChange={setDate} format="DD/MM/YYYY" label="Select Date" className="w-full my-1" />
             </LocalizationProvider>
 
+            <BasicSelect gender={gender} setGender={setGender} />
+
             <div className="justify-self-start text-xl my-1">Password</div>
             <PasswordBox setValue={setPassword} />
             {/* <InputBox onChange={(e) => setPassword(e.target.value)} /> */}
@@ -80,7 +84,8 @@ export function Signup() {
                         password,
                         firstname,
                         lastname,
-                        dob
+                        dob,
+                        gender
                     });
                     // re direct to homepage
                     setError(response.data.message);
