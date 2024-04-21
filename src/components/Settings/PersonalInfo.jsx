@@ -10,6 +10,7 @@ import { Button } from "./Button";
 import axios from "axios";
 import { BACKEND_URL } from "../backend-url";
 import { IMGUR_TOKEN } from "../../assets/imgur";
+import { useNavigate } from "react-router-dom";
 
 export function PersonalInfo() {
     
@@ -27,6 +28,7 @@ export function PersonalInfo() {
     const [file, setFile] = useState(null);
     const [fileURL, setFileURL] = useState(null);
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
     //fetch details of current user
     useEffect(() => {
@@ -146,6 +148,9 @@ export function PersonalInfo() {
         }
     }
     
+    const goToIntro = () => {
+        navigate("/intro");
+    }
 
     return <div className="mt-5">
         {currentUser && (
@@ -200,7 +205,8 @@ export function PersonalInfo() {
                     <InputBox value={password} setValue={setPassword} />
                 </div>
                 <div className="mt-3">
-                    <Button onClick={onClick} />
+                    <Button label={"Confirm"} onClick={onClick} />
+                    <Button label={"Intro"} onClick={goToIntro} />
                 </div>
                 {error && (
                     <div className="text-red-600">
